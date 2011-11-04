@@ -1,0 +1,50 @@
+
+X version.
+
+* Fade the colors in and out.
+
+* Take away the demand for a local colormap if it isn't absolutly
+  necessary.
+
+* Ports for other unices.
+  HP-UX, Solaris, SunOS, OpenBSD, AIX, Ultrix, OSF1, Irix and Linux are known
+  to work.
+
+* Support for non 8 bpp pseudocolor visuals.
+
+* Caps lock seem to be buggy.
+
+
+Windows version.
+
+* Sound.
+
+* Display of error messages during startup.
+
+* Screen is not redrawn when switching back to thrust from some other
+  application.
+
+* thrust dies when minimized.
+
+
+General
+
+* Should not require GNU make.
+
+* Music.
+
+* The blinking of the stars.
+
+* Rewrite of the scrolling routines (Needed, but how?).
+
+* Steering with joystick.
+
+* Documentation of the code.
+
+* Remove all sorts of arbitrary limits when parsing levels.
+
+* Load levels at run-time.
+
+* Save keyboard configuration in .thrustrc.
+
+* Use GGI/GII instead of SVGAlib or X.
