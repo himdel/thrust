@@ -7,6 +7,7 @@
 #include "thrust.h"
 #include "keyboard.h"
 
+int scancode[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 static int keyz[SDLK_LAST];
 
 
