@@ -145,8 +145,9 @@ fadepalette(int first, int last, byte *RGBtable, int fade, int flag)
 void
 fade_in(void)
 {
-	for (int i = 1; i <= 64; i++)
-		fadepalette(0, 255, bin_colors, i, 1);
+	fadepalette(0, 255, bin_colors, -1, 1);
+//	for (int i = 1; i <= 64; i++)
+//		fadepalette(0, 255, bin_colors, i, 1);
 
 	displayscreen();
 }
@@ -155,8 +156,9 @@ fade_in(void)
 void
 fade_out(void)
 {
-	for (int i = 64; i; i--)
-		fadepalette(0, 255, bin_colors, i, 1);
+	fadepalette(0, 255, bin_colors, -1, 1);
+//	for (int i = 64; i; i--)
+//		fadepalette(0, 255, bin_colors, i, 1);
 
 	clearscr();
 	usleep(500000L);
