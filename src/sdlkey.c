@@ -7,13 +7,14 @@
 #include "thrust.h"
 #include "keyboard.h"
 
+// left, right, thrust, fire, pick (, quit, pause, continue)
 int scancode[8] = { 0, 0, 0, 0, 0, 0, 0, 0 };
 static int keyz[SDLK_LAST];
 
 
 // key driver name
 char *
-keyname(void)
+keyname()
 {
 	static char name[] = "SDL";
 	return name;
@@ -21,7 +22,7 @@ keyname(void)
 
 // init key system
 int
-keyinit(void)
+keyinit()
 {
 	flushkeyboard();
 	return 0;
@@ -29,7 +30,7 @@ keyinit(void)
 
 // close, empty
 int
-keyclose(void)
+keyclose()
 {
 	return 0;
 }
@@ -38,8 +39,18 @@ keyclose(void)
 char *
 keystring(int key)
 {
-	static char stub[] = "STUB";
-	return stub;
+	switch (key) {
+		case SDLK_UP:
+			return "Up";
+		case SDLK_DOWN:
+			return "Down";
+		case SDLK_RETURN:
+			return "Enter";
+		case SDLK_ESCAPE:
+			return "Escape";
+		default:
+			return "unknown";
+	}
 }
 
 // stub, non-default keys not implemented
@@ -78,14 +89,14 @@ update_keys(int retdown)
 
 // read one keypress
 int
-getkey(void)
+getkey()
 {
 	return update_keys(1);
 }
 
 // return key status in a byte
 byte
-getkeys(void)
+getkeys()
 {
 	byte keybits = 0;
 
@@ -110,28 +121,28 @@ getkeys(void)
 	return keybits;
 }
 
-// set singlekey mode
+// set singlekey mode, stub
 void
-singlekey(void)
+singlekey()
 {
 }
 
 // set multikey mode, stub
 void
-multiplekeys(void)
+multiplekeys()
 {
 }
 
 // get one key
 int
-getonemultiplekey(void)
+getonemultiplekey()
 {
 	return getkey();
 }
 
 // flush keyboard
 void
-flushkeyboard(void)
+flushkeyboard()
 {
 	update_keys(0);
 	for (int foo = 0; foo < SDLK_LAST; foo++)
@@ -140,7 +151,7 @@ flushkeyboard(void)
 
 // is a key waiting
 int
-keywaiting(void)
+keywaiting()
 {
 	update_keys(0);
 	for (int foo = 0; foo < SDLK_LAST; foo++)

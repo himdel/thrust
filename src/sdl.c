@@ -20,7 +20,7 @@ static SDL_Surface *scr = NULL;
 
 // used for output-specific options
 char *
-graphicsname(void)
+graphicsname()
 {
 	static char name[] = "SDL";
 	return name;
@@ -28,7 +28,7 @@ graphicsname(void)
 
 // run before init, empty
 void
-graphics_preinit(void)
+graphics_preinit()
 {
 	;
 }
@@ -52,7 +52,7 @@ graphicsinit(int argc, char **argv)
 
 // close graphics
 int
-graphicsclose(void)
+graphicsclose()
 {
 	SDL_Quit();
 	scr = NULL;
@@ -62,7 +62,7 @@ graphicsclose(void)
 
 // clear screen
 void
-clearscr(void)
+clearscr()
 {
 	if (SDL_MUSTLOCK(scr))
 		SDL_LockSurface(scr);
@@ -80,16 +80,34 @@ clearscr(void)
 
 // flip buffer
 void
-displayscreen(void)
+displayscreen()
 {
 	SDL_UpdateRect(scr, 0, 0, 0, 0);
 }
 
-// wait for sync, empty
+// displayscreen and wait
 void
-syncscreen(void)
+syncscreen()
 {
-	;
+	struct timeval tmp;
+	static int old = -1;
+
+	if (old == -1) {
+		gettimeofday(&tmp, NULL);
+		old = tmp.tv_usec;
+	}
+
+	displayscreen();
+
+	gettimeofday(&tmp, NULL);
+	int new = tmp.tv_usec;
+	int diff = (old - new + 1000000) % 1000000;
+
+	if (diff > 20000)
+		usleep(diff % 20000);
+
+	gettimeofday(&tmp, NULL);
+	old = tmp.tv_usec;
 }
 
 // paint a pixel
@@ -143,7 +161,7 @@ fadepalette(int first, int last, byte *RGBtable, int fade, int flag)
 
 // fade in gradually
 void
-fade_in(void)
+fade_in()
 {
 	fadepalette(0, 255, bin_colors, -1, 1);
 //	for (int i = 1; i <= 64; i++)
@@ -154,7 +172,7 @@ fade_in(void)
 
 // fade out gradually
 void
-fade_out(void)
+fade_out()
 {
 	fadepalette(0, 255, bin_colors, -1, 1);
 //	for (int i = 64; i; i--)
