@@ -7,6 +7,7 @@
 #include <assert.h>
 #define __USE_BSD
 #include <unistd.h>
+#include <sys/time.h>
 
 #include <SDL/SDL.h>
 #include "thrust.h"

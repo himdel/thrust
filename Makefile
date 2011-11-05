@@ -70,7 +70,7 @@ X_OBJS       = $(addprefix src/, X11key.o X11.o)
 X_DATAOBJS   = $(addprefix datasrc/, icon48.o)
 SVGA_OBJS    = $(addprefix src/, svgakey.o ksyms.o svga.o)
 
-SDL_OBJS     = $(addprefix src/, sdlkey.o sdl.o)
+SDL_OBJS     = $(addprefix src/, SDLkey.o SDL.o)
 SDL_LIBS     = -lSDL
 
 TARFILE      = thrust-$(VERSION).src.tar
@@ -241,10 +241,10 @@ endif
 %.o: %.c
 	$(CC) $(ALL_CFLAGS) -c -o $(addprefix $(dir $<), $(notdir $@)) $<
 
-src/sdl.o: src/sdl.c
+src/SDL.o: src/SDL.c
 	$(CC) $(ALL_CFLAGS) -c -o $(addprefix $(dir $<), $(notdir $@)) $< -std=c99
 
-src/sdlkey.o: src/sdlkey.c
+src/SDLkey.o: src/SDLkey.c
 	$(CC) $(ALL_CFLAGS) -c -o $(addprefix $(dir $<), $(notdir $@)) $< -std=c99
 
 # Extract palette information.
