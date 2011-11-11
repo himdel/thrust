@@ -1,3 +1,10 @@
+thrust (0.89c-3.6) unstable; urgency=low
+
+  * Non-maintainer upload.
+  * added SDL support (sdlthrust)
+
+ -- Martin Hradil <himdel@seznam.cz>  Fri, 11 Nov 2011 01:29:55 +0000
+
 thrust (0.89c-3.5) unstable; urgency=low
 
   [Jari Aalto]

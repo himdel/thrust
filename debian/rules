@@ -20,7 +20,7 @@ endif
 build: build-stamp
 build-stamp:
 	dh_testdir
-	
+
 	# Make sure we use the latest autotools helpers.
 	if test -f config.sub; then \
 		mv config.sub config.sub.debsave; \
@@ -41,7 +41,7 @@ clean:
 	dh_testroot
 	rm -f build-stamp
 	-$(MAKE) -i distclean
-	
+
 	if test -L config.sub; then \
 		$(RM) config.sub; \
 		if test -e config.sub.debsave; then \
@@ -54,7 +54,7 @@ clean:
 			mv config.guess.debsave config.guess; \
 		fi; \
 	fi
-	
+
 	dh_clean debian/menu config.cache config.log config.status
 
 # Build architecture-independent files here.
@@ -71,17 +71,22 @@ binary-arch: build
 	$(MAKE) DEB=debian/tmp install
 	$(MAKE) DEB=debian/tmp install-man
 	dh_link usr/share/man/man6/thrust.6 usr/share/man/man6/xthrust.6
-	
+	dh_link usr/share/man/man6/thrust.6 usr/share/man/man6/sdlthrust.6
+
 	# Build the menu file on the fly, depending on what thrust binaries
 	# are present.
 	-rm -f debian/menu
 	touch debian/menu
 	if [ -x debian/tmp/usr/games/thrust ] ; then \
-		echo "?package(thrust):needs=\"vc\" section=\"Games/Arcade\" title=\"Thrust\" command=\"/usr/games/thrust\" icon=\"/usr/share/pixmaps/thrust.xpm\"" >> \
+		echo "?package(thrust):needs=\"vc\" section=\"Games/Arcade\" title=\"Thrust (SVGALib)\" command=\"/usr/games/thrust\" icon=\"/usr/share/pixmaps/thrust.xpm\"" >> \
 		debian/menu ;\
 	fi
 	if [ -x debian/tmp/usr/games/xthrust ] ; then \
-		echo "?package(thrust):needs=\"x11\" section=\"Games/Arcade\" title=\"Thrust\" command=\"/usr/games/xthrust\" icon=\"/usr/share/pixmaps/thrust.xpm\"" >> \
+		echo "?package(thrust):needs=\"x11\" section=\"Games/Arcade\" title=\"Thrust (X)\" command=\"/usr/games/xthrust\" icon=\"/usr/share/pixmaps/thrust.xpm\"" >> \
+		debian/menu ;\
+	fi
+	if [ -x debian/tmp/usr/games/sdlthrust ] ; then \
+		echo "?package(thrust):needs=\"x11\" section=\"Games/Arcade\" title=\"Thrust (SDL)\" command=\"/usr/games/sdlthrust\" icon=\"/usr/share/pixmaps/thrust.xpm\"" >> \
 		debian/menu ;\
 	fi
 	mkdir -p debian/tmp/usr/share/lintian/overrides
@@ -100,6 +105,8 @@ binary-arch: build
 	dh_fixperms
 	# Don't die if these operations fail (binaries might not all be
 	# present on some architectures.)
+	-chown root.games debian/tmp/usr/games/sdlthrust
+	-chmod g+s debian/tmp/usr/games/sdlthrust
 	-chown root.games debian/tmp/usr/games/xthrust
 	-chmod g+s debian/tmp/usr/games/xthrust
 	-chown root.games debian/tmp/usr/games/thrust
@@ -111,7 +118,7 @@ binary-arch: build
 	dh_md5sums
 	dh_builddeb
 
-source diff:                                                                  
+source diff:
 	@echo >&2 'source and diff are obsolete - use dpkg-source -b'; false
 
 binary: binary-indep binary-arch

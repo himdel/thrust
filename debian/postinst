@@ -4,8 +4,8 @@ if [ -f /var/lib/games/thrust.highscore ]
 then
     if [ -f /var/games/thrust.highscore ]
     then
-	echo "Saving the new highscores for you to /var/games/thrust/highscore.new"
-	mv /var/games/thrust.highscore /var/games/thrust.highscore.new	
+        echo "Saving the new highscores for you to /var/games/thrust/highscore.new"
+        mv /var/games/thrust.highscore /var/games/thrust.highscore.new
     fi
     echo Moving the old highscore file to the new place
     mv /var/lib/games/thrust.highscore /var/games/thrust.highscore
