@@ -678,8 +678,8 @@ dnl UNIX Variants
 
 dnl Output
 
-if test "x$no_svga" = xyes && test "x$no_x" = xyes; then
-  AC_MSG_WARN([Either X or SVGAlib found. Impossible to build game.])
+if test "x$no_svga" = xyes && test "x$no_x" = xyes && test "x$no_sdl" = xyes; then
+  AC_MSG_WARN([Neither X, SVGAlib or SDL found. Impossible to build game.])
 fi
 
 AC_SUBST(version)
@@ -690,6 +690,7 @@ AC_SUBST(config_args)
 AC_SUBST(no_pbm)
 AC_SUBST(no_svga)
 AC_SUBST(no_x)
+AC_SUBST(no_sdl)
 AC_SUBST(sound)
 
 AC_OUTPUT(Makefile thrust-${version}.lsm:thrust.lsm Makefile.bindist thrust.pod)

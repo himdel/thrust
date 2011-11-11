@@ -33,6 +33,7 @@ install:
 	fi
 	$(INSTALL) -m 6755 thrust $(BINDIR)/thrust
 	$(INSTALL) -m 2755 xthrust $(BINDIR)/xthrust
+	$(INSTALL) -m 2755 sdlthrust $(BINDIR)/sdlthrust
 	@if test ! -d $(STATEDIR) ; then \
 	  echo $(INSTALL) -d $(STATEDIR); \
 	  $(INSTALL) -d $(STATEDIR); \
@@ -45,6 +46,7 @@ install:
 uninstall:
 	rm $(BINDIR)/thrust
 	rm $(BINDIR)/xthrust
+	rm $(BINDIR)/sdlthrust
 	rm $(FULLHISCORE)
 
 install-man:
