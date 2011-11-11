@@ -2,7 +2,8 @@
 Thrust
 
 I started to code Thrust for MSDOG but later I had a revelation so now it is
-converted to X and Linux/SVGAlib. Nowadays it is also converted to Windows.
+converted to X and Linux/SVGAlib. Nowadays it is also converted to Windows
+(DirectX) and SDL.
 
 This is the game from the C64 that you cannot live without.
 

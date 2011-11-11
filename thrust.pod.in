@@ -11,6 +11,9 @@ B<thrust> [--help] [--version] [--nodemo] [--nosoundeffects] [--gamma=Value]
 B<xthrust> [--help] [--version] [--nodemo] [--nosoundeffects] [--gamma=Value]
 [--step] [--noshm] [--double] [-display display-name] [-geometry=geometry-spec]
 
+B<sdlthrust> [--help] [--version] [--nodemo] [--nosoundeffects] [--gamma=Value]
+[--step] [--double]
+
 =head1 DESCRIPTION
 
 This is a port of Thrust, the classic Commodore 64 game, to un*x and MSDOG.
@@ -97,9 +100,9 @@ Do not try to share memory between Thrust and the X server.
 
 =item I<-2, --double>
 
-This option is only applicable to the X version of Thrust.
+This option is only applicable to the X and SDL versions of Thrust.
 
-Double the size of the window. This makes the game slow.
+Double the size of the window. (This may make the game slow.)
 
 =back
 

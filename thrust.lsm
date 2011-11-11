@@ -19,7 +19,8 @@ Platforms:      SVGALib - Linux
                 X - Linux, SunOS 4.1, Solaris 2.4/2.5, HP-UX 10.20,
                     Irix 4.0.5, OSF1 4.0, AIX 4.2, OpenBSD 2.0
                     and Ultrix 4.5. Very likely others as well.
-                Win32/DirectX 3.0 - Windows NT 4.0 SP 3, Windows 95/98.
                 Supports 8 bits per pixel pseudocolor visuals only.
+                Win32/DirectX 3.0 - Windows NT 4.0 SP 3, Windows 95/98.
+                SDL - Linux and probably elsewhere.
 Copying-policy: GPL
 End
