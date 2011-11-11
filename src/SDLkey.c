@@ -2,6 +2,8 @@
 // (adapted from tank [ https://github.com/himdel/tank/ ])
 // output in sdl.c
 
+// Written by Martin Hradil, himdel@seznam.cz
+
 #include <SDL/SDL.h>
 #include <SDL/SDL_keysym.h>
 #include "thrust.h"

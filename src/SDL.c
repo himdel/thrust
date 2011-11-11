@@ -2,6 +2,8 @@
 // (adapted from tank [ https://github.com/himdel/tank/ ])
 // input in sdlkey.c
 
+// Written by Martin Hradil, himdel@seznam.cz
+
 #include <stdlib.h>
 #include <stdlib.h>
 #include <assert.h>
