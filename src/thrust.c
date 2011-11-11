@@ -15,6 +15,7 @@
 # include "getopt.h"
 #endif
 
+#define __USE_BSD
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
