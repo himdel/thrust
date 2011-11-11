@@ -13,8 +13,9 @@ If you have the binary distribution, skip to 4.
   * You will need a ANSI C compiler.
   * You will need a make that can handle text transforming functions, e.g the
     GNU Make utility.
-  * You will also need one or more of X, SVGAlib 1.2 (or later) and SDL v1.2 to compile the source. The
-    X version of the game will only run on 8 bpp pseudocolor visuals.
+  * You will also need one or more of X, SVGAlib 1.2 (or later) and SDL v1.2
+    to compile the source. The X version of the game will only run on 8 bpp
+    pseudocolor visuals.
   * Root permissions so that SVGAlib can open the graphics display. No root
     access needed for the X version.
 
