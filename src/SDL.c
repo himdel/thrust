@@ -9,12 +9,20 @@
 #include <unistd.h>
 #include <sys/time.h>
 
+#if defined(HAVE_GETOPT_H) && defined(HAVE_GETOPT_LONG_ONLY)
+# include <getopt.h>
+#elif !defined(HAVE_GETOPT_LONG_ONLY)
+# include "getopt.h"
+#endif
+
 #include <SDL/SDL.h>
 #include "thrust.h"
 #include "gr_drv.h"
+#include "options.h"
 
 static const int X = 320;
 static const int Y = 200;
+static int double_size = 0;
 
 static SDL_Surface *scr = NULL;
 
@@ -38,15 +46,30 @@ graphics_preinit()
 int
 graphicsinit(int argc, char **argv)
 {
+	int optc;
+
+	optind = 0;		// reset getopt parser
+	do {
+		static struct option longopts[] = {
+			OPTS,
+			SDL_OPTS,
+			{ 0, 0, 0, 0 }
+		};
+
+		optc = getopt_long_only(argc, argv, OPTC SDL_OPTC, longopts, (int *) 0);
+		if (optc == '2')
+			double_size = 1;
+	} while (optc != EOF);
+
 	if (SDL_Init(SDL_INIT_VIDEO) == -1) {
 		fprintf(stderr, "SDL_Init: %s\n", SDL_GetError());
 		return -1;
 	}
 
 	SDL_WM_SetCaption("thrust", "thrust");
-	// SDL_WM_SetIcon(SDL_LoadBMP("img/icon.bmp"), NULL);
 
-	assert((scr = SDL_SetVideoMode(X, Y, 8, SDL_SWSURFACE)));
+	scr = SDL_SetVideoMode(X * (double_size ? 2 : 1), Y * (double_size ? 2 : 1), 8, SDL_SWSURFACE);
+	assert(scr);
 
 	return 0;
 }
@@ -111,6 +134,22 @@ syncscreen()
 	old = tmp.tv_usec;
 }
 
+// actually paints a pixel, no locking
+static void
+_putpixel(int x, int y, byte color)
+{
+	if (!double_size) {
+		// single pixel
+		*((Uint8 *) scr->pixels + (scr->pitch * y) + x) = color;
+	} else {
+		// double size
+		*((Uint8 *) scr->pixels + (scr->pitch * (2 * y)) + (2 * x)) = color;
+		*((Uint8 *) scr->pixels + (scr->pitch * (2 * y)) + (2 * x + 1)) = color;
+		*((Uint8 *) scr->pixels + (scr->pitch * (2 * y + 1)) + (2 * x)) = color;
+		*((Uint8 *) scr->pixels + (scr->pitch * (2 * y + 1)) + (2 * x + 1)) = color;
+	}
+}
+
 // paint a pixel
 void
 putpixel(int x, int y, byte color)
@@ -118,7 +157,7 @@ putpixel(int x, int y, byte color)
 	if (SDL_MUSTLOCK(scr))
 		SDL_LockSurface(scr);
 
-	*((Uint8 *) scr->pixels + (scr->pitch * y) + x) = color;
+	_putpixel(x, y, color);
 
 	if (SDL_MUSTLOCK(scr))
 		SDL_UnlockSurface(scr);
@@ -133,7 +172,7 @@ putarea(byte *source, int x, int y, int width, int height, int bytesperline, int
 
 	for (int j = 0; j < height; j++)
 		for (int i = 0; i < width; i++)
-			*((Uint8 *) scr->pixels + (scr->pitch * (desty + j)) + (destx + i)) = source[bytesperline * (y + j) + x + i];
+			_putpixel(destx + i, desty + j, source[bytesperline * (y + j) + x + i]);
 
 	if (SDL_MUSTLOCK(scr))
 		SDL_UnlockSurface(scr);

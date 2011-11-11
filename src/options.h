@@ -22,6 +22,10 @@
       { "noshm",          no_argument,       0, 'm' }, \
       { "display",        required_argument, 0, 'X' }, \
       { "geometry",       required_argument, 0, 'g' }, \
-      { "double",         no_argument,       0, '2' } 
+      { "double",         no_argument,       0, '2' }
+
+#define SDL_OPTC "2"
+#define SDL_OPTS \
+      { "double",         no_argument,       0, '2' }
 
 #endif /* OPTIONS_H */
