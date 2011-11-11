@@ -593,7 +593,7 @@ AC_PROG_CC
 cflags=
 optimize=
 if test "x$GCC" = xyes; then
-  cflags="$cflags -Wall -Wstrict-prototypes -Wmissing-prototypes"
+  cflags="$cflags -Wall -Wstrict-prototypes -Wmissing-prototypes -std=c99"
   optimize="$optimize -fomit-frame-pointer -O9 -s"
 else
   case "$host" in

@@ -4,8 +4,6 @@ SDL version.
 
 * Setting keys (the whole name<->key mapping).
 
-* Zoom.
-
 * thrustrc SDL defaults.
 
 
@@ -13,7 +11,7 @@ X version.
 
 * Fade the colors in and out.
 
-* Take away the demand for a local colormap if it isn't absolutly
+* Take away the demand for a local colormap if it isn't absolutely
   necessary.
 
 * Ports for other unices.

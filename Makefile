@@ -20,20 +20,15 @@ BINDIR       = /usr/games
 MANDIR       = /usr/share/man
 STATEDIR     = /var/games
 
-DEFINES      = $(strip \
-                 -DHIGHSCOREFILE=\"$(FULLHISCORE)\" \
-                 -DVERSION=\"$(VERSION)\" \
-                 -DHAVE_CONFIG_H)
-OPTIMIZE     =  -fomit-frame-pointer -O9 -s
-COMPILE      =  -Wall -Wstrict-prototypes -Wmissing-prototypes
-ALL_CFLAGS   = $(strip \
-                 $(DEFINES) $(OPTIMIZE) $(COMPILE) \
-                  )
-SVGA_LIBS    =  -lvgagl -lvga
-X_LIBS       =  -lSM -lICE   -lXext -lX11
+DEFINES      = $(strip -DHIGHSCOREFILE=\"$(FULLHISCORE)\" -DVERSION=\"$(VERSION)\" -DHAVE_CONFIG_H )
+OPTIMIZE     = -fomit-frame-pointer -O9 -s
+COMPILE      = -Wall -Wstrict-prototypes -Wmissing-prototypes -std=c99
+ALL_CFLAGS   = $(strip $(DEFINES) $(OPTIMIZE) $(COMPILE) )
+SVGA_LIBS    = -lvgagl -lvga
+X_LIBS       = -lSM -lICE   -lXext -lX11
 LDFLAGS      = 
 
-PBM_FLAGS    =   -lppm -lpgm -lpbm -DVERSION=\"0.6\"
+PBM_FLAGS    = -lppm -lpgm -lpbm -DVERSION=\"0.6\"
 
 MAN          = thrust.man
 HIGHSCORE    = thrust.highscore
@@ -98,27 +93,52 @@ BINDISTFILES = Makefile.bindist
 .INTERMEDIATE: $(BIN8) datasrc/blks.bin
 
 
+# is there an easier way than doing all 8 combinations?
 ifeq ($(NO_X),yes)
  ifeq ($(NO_SVGA),yes)
+  ifeq ($(NO_SDL),yes)
 all:
 	@echo Unable to find any one of X and SVGAlib.
 	@echo Try reconfiguring.
 
 install:
+  else
+all: sdlthrust
+
+install: sdlthrust
+  endif
  else
+  ifeq ($(NO_SDL),yes)
 all: thrust
 
 install: thrust
+  else
+all: thrust sdlthrust
+
+install: thrust sdlthrust
+  endif
  endif
 else
  ifeq ($(NO_SVGA),yes)
+  ifeq ($(NO_SDL),yes)
 all: xthrust
 
 install: xthrust
+  else
+all: xthrust sdlthrust
+
+install: xthrust sdlthrust
+  endif
  else
+  ifeq ($(NO_SDL),yes)
 all: thrust xthrust
 
 install: thrust xthrust
+  else
+all: thrust xthrust sdlthrust
+
+install: thrust xthrust sdlthrust
+  endif
  endif
 endif
 	@if test ! -d $(DEB)/$(BINDIR) ; then \
